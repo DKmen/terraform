@@ -12,19 +12,16 @@ terraform {
       source  = "hashicorp/http"
       version = "~> 2.1.0"
     }
-    local = {
-      source  = "hashicorp/local"
-      version = "2.5.2"
-    }
-    tls = {
-      source  = "hashicorp/tls"
-      version = "4.0.6"
-    }
   }
 }
 
 provider "aws" {
   region = "us-east-1"
+  default_tags {
+    tags = {
+      "Env" = terraform.workspace
+    }
+  }
 }
 
 provider "random" {}

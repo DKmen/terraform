@@ -182,18 +182,25 @@ resource "aws_security_group" "default_sg" {
 }
 
 #Create EC2 Instance
-resource "aws_instance" "web" {
-  ami                    = "ami-053b0d53c279acc90"
-  instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.public_subnets["public_subnet_1"].id
-  vpc_security_group_ids = [aws_security_group.default_sg.id]
-  tags = {
-    Name        = "demo_web_server"
-    Terraform   = "true"
-    Theme       = local.theme
-    Application = local.application
-    Service     = local.service_name
-  }
+# resource "aws_instance" "web" {
+#   ami                    = "ami-053b0d53c279acc90"
+#   instance_type          = "t2.micro"
+#   subnet_id              = aws_subnet.public_subnets["public_subnet_1"].id
+#   vpc_security_group_ids = [aws_security_group.default_sg.id]
+#   tags = {
+#     Name        = "demo_web_server"
+#     Terraform   = "true"
+#     Theme       = local.theme
+#     Application = local.application
+#     Service     = local.service_name
+#   }
+# }
+module "server" {
+  source          = "./modules/server"
+  ami             = "ami-053b0d53c279acc90"
+  size            = "t2.micro"
+  subnet_id       = aws_subnet.public_subnets["public_subnet_1"].id
+  security_groups = [aws_security_group.default_sg.id]
 }
 
 #Create S3 Bucket with random name
@@ -220,13 +227,4 @@ resource "aws_s3_bucket_ownership_controls" "my_new_bucket_acl" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
-}
-
-#Generate ssh key
-resource "tls_private_key" "generated" {
-  algorithm = "RSA"
-}
-resource "local_file" "private_key_pem" {
-  content  = tls_private_key.generated.private_key_pem
-  filename = "MyAWSKey.pem"
 }
