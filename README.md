@@ -47,3 +47,9 @@ This project contains Terraform configurations for setting up infrastructure on 
     ```sh
     terraform apply
      ```
+    
+4. **Destroy Terraform Configuration**:
+    ```sh
+    terraform destroy
+    ```
+    
