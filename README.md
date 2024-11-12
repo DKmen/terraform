@@ -5,9 +5,6 @@ This project contains Terraform configurations for setting up infrastructure on 
 ## Project Structure
 
 ### Files and Directories
-
-- **cred/**: Contains credentials and access keys.
-  - `terraform-learning_accessKeys.csv`: CSV file with access keys.
   
 - **learning-pdf/**: Directory for learning materials in PDF format.
 
