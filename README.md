@@ -38,7 +38,7 @@ This project contains Terraform configurations for setting up infrastructure on 
    terraform init
     ```
 
-2 **Plan Terraform Configuration**:
+2. **Plan Terraform Configuration**:
     ```sh
    terraform plan
     ```
